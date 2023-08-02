@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Addition Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Java Addition Program</h1>
+       
+        <form action="/submit-answer" method="post">
+            <p id="questionbar" name="question">Write a program for adding two numbers in Java:</p>
+            <p id="marksbar" name="marks"> Marks: 0</p>
+            <input type="text" name="answer" placeholder="Enter your answer" required>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+
+function fetchQuestions() {
+    console.log("begin!");
+            fetch('/give-questions')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                   setquestion(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error.message);
+                    alert('An error occurred while fetching questions.');
+                });
+        }
+function setquestion(data)
+{
+    const question_bar = document.getElementById("questionbar");
+    question_bar.innerHTML = data.question;
+    const marksbar = document.getElementById("marksbar");
+    marksbar.innerHTML = "Marks For it : "+data.marks;
+}
+
+
+        window.addEventListener('load', fetchQuestions);
+</script>
